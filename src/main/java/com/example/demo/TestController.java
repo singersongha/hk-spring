@@ -3,8 +3,10 @@ package com.example.demo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // @annotation
 // request 유저가 요청 하는 것
@@ -37,6 +39,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 // bean 스프링 내부에서 관리하는 static
 // bean 돌돌 모아놓은 곳 IoC 컨테이너
 
+// method: GET, POST
+// GET body x url ? 데이터 = fdfs
+// POST body o json: {데이터: "ㅇㄹㄴ"}
+
+// MVC 패턴 : model-data view-html controller
 
 @Controller
 public class TestController {
@@ -45,17 +52,29 @@ public class TestController {
     Student 이세연;
     Data data; // 클래스 자체를 갖다 쓸 때 -> @component
 
-    public TestController(String test2, Student 이세연, Data data) {
-        this.test2 = test2;
-        this.이세연 = 이세연;
-        this.data = data;
-    }
-
     @RequestMapping
-    public String index(HttpServletRequest request) {
-        System.out.println(data.list.get(0) == 이세연);
+    public String index(Model model) {
+//        request.getRemoteUser();
+//        System.out.println(data.list.get(0) == 이세연);
+//        model.addAttribute("student", 이세연);
+        model.addAttribute("list", data.list);
         return "index";
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String postStudent(
+            HttpServletRequest request
+            , @RequestParam String name
+            , @RequestParam int age) {
+       Student student =  new Student(name, age);
+       data.list.add(student);
+       return "redirect:/";
+//        String rename = request.getParameter("name");
+//        int reage = Integer.parseInt(request.getParameter("age"));
+//        System.out.println(name + " " + age);
+//        System.out.println(rename+ " " + reage);
+    }
+
     // localhost:8080/java
     @RequestMapping(value = "/java", method = RequestMethod.GET)
     public String java() {
@@ -65,5 +84,10 @@ public class TestController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
         return "test";
+    }
+    public TestController(String test2, Student 이세연, Data data) {
+        this.test2 = test2;
+        this.이세연 = 이세연;
+        this.data = data;
     }
 }

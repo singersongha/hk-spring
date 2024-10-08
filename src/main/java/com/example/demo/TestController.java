@@ -28,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 // ssr은 n번 가져옴, 초기 로딩이 짧다 그 후 로딩 길다, 검색엔진 노출이 좋다, js가 쪼개져 있음, 계속 페이지가 새로고침되어 사용감이 안좋음.
 // ssr 단점 해결 -> next.js
 
+// @ 간단한 annotation을 사용해주면서 구현을 숨기고 편히 사용할 수 있게 해줌
+
+
 @Controller
 public class TestController {
     @RequestMapping

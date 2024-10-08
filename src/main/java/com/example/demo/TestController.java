@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,13 +30,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 // ssr 단점 해결 -> next.js
 
 // @ 간단한 annotation을 사용해주면서 구현을 숨기고 편히 사용할 수 있게 해줌
+// spring 3 구성요소
+// psa(Portable Service Abstraction) 서비스 추상화
+// di(Dependency injection) 의존성 , IoC 제어의 역전 IoC(spring bean) container
+// aop(Aspect oriented programming) 관점지향
+// bean 스프링 내부에서 관리하는 static
+// bean 돌돌 모아놓은 곳 IoC 컨테이너
 
 
 @Controller
 public class TestController {
+    // @Autowired 빈에서 꺼내 쓰는 것 (의존성 주입)
+    String test2; // bean의 타입과 변수명을 보고 가져옴
+    Student 이세연;
+    Data data; // 클래스 자체를 갖다 쓸 때 -> @component
+
+    public TestController(String test2, Student 이세연, Data data) {
+        this.test2 = test2;
+        this.이세연 = 이세연;
+        this.data = data;
+    }
+
     @RequestMapping
     public String index(HttpServletRequest request) {
-        System.out.println(request.getRemoteAddr());
+        System.out.println(data.list.get(0) == 이세연);
         return "index";
     }
     // localhost:8080/java

@@ -1,6 +1,5 @@
 package com.naver.kiosk.store;
 
-import ch.qos.logback.core.util.StringUtil;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +31,14 @@ setName("커피")
 3. 소문자로 작성해라 (/storesCreate) -> (/stores-create)
 4. 언더바(_) 말고 하이픈(-)으로 작성해라
 
+http 통신
+
+status code
+100 =< > 200 socket
+200 =< >300 http 통신(성공)
+300 =< > 400 html을 사용할 때(Found, Redirect)
+400 =< > 500 Client 실수 (404 not found, 401 권한 없음)
+500 =< > 600 서버 측 실수 (500 internal server error)
 */
 
 @RestController
@@ -46,14 +53,14 @@ public class StoreController {
     @GetMapping("/{store-id}")
     public Store getStoreById(@PathVariable(value = "store-id") int id) {
 //        Integer id = 10_000;
-        Optional<Store> first = Utils.stores
+        return Utils.stores
                 .stream()
                 .filter(el -> el.getId() == id)
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new StoreNotFoundException(id));
 //        Optional<Store>
         // 비어있으면 에러 발생
-        if(first.isEmpty()) throw new RuntimeException();
-        return first.get();
+
     }
 
     @PostMapping

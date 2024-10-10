@@ -1,5 +1,6 @@
 package com.naver.kiosk.store;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ status code
 500 =< > 600 서버 측 실수 (500 internal server error)
 */
 
+@RequestMapping("/stores")
 @RestController
 public class StoreController {
     @GetMapping
@@ -64,6 +66,7 @@ public class StoreController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Store saveStore(
             @RequestBody StoreRequest request
     )

@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /*
 Restful API
@@ -45,22 +44,23 @@ status code
 @RequestMapping("/stores")
 @RestController
 public class StoreController {
+    private final StoreService storeService;
+    public StoreController(StoreService storeService) {
+        this.storeService = storeService;
+        //this.storeService = new StoreService();
+    }
+
     @GetMapping
     public List<Store> getAllStores() {
         //localhost:8080
-        return Utils.stores;
+        return storeService.getAllStores();
     }
 
     // localhost:8080/id 변수 주소
     @GetMapping("/{store-id}")
     public Store getStoreById(@PathVariable(value = "store-id") int id) {
 //        Integer id = 10_000;
-        return Utils.stores
-                .stream()
-                .filter(el -> el.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new StoreNotFoundException(id));
-//        Optional<Store>
+        return storeService.getStoreById(id);
         // 비어있으면 에러 발생
 
     }
@@ -71,26 +71,18 @@ public class StoreController {
             @RequestBody StoreRequest request
     )
     {
-        Store store = request.toStore();
-        Utils.stores.add(store);
-        return store;
-//        System.out.println(request);
-//        String name = "매머드";
-//        String address = "서울";
-//        short openTime = 7;
-//        short closeTime = 21;
+        return storeService.addStore(request);
     }
 
     @DeleteMapping("/{store-id}")
     public void deleteStore(@PathVariable(value = "store-id") int id) {
-        Store storeById = getStoreById(id);
-        Utils.stores.remove(storeById);
+        storeService.deleteStore(id);
     }
 
     @PutMapping("/{store-id}")
     public Store updateStore(@PathVariable(value = "store-id") int id,
                              @RequestBody StoreRequest request) {
-        return getStoreById(id).update(request);
+        return storeService.updateStore(request, id);
     }
 
 //    public static void main(String[] args) {

@@ -51,7 +51,7 @@ public class StoreController {
     }
 
     @GetMapping
-    public List<Store> getAllStores() {
+    public List<StoreResponse> getAllStores() {
         //localhost:8080
         return storeService.getAllStores();
     }

@@ -15,16 +15,17 @@ import ch.qos.logback.core.util.StringUtil;
 // closetime : 1
 // id : 2
 public class Store {
+
     public Store(String name, String address, short openTime, short closeTime) {
         this.name = name;
         this.address = address;
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.id = Utils.storeCount++;
+        this.isDeleted = false;
     }
 
     public int getId() {
-
         return id;
     }
 
@@ -44,10 +45,20 @@ public class Store {
         return closeTime;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
     private String name;
     private String address;
     private short openTime;
     private short closeTime;
+    private final int id;
+    private boolean isDeleted;
+
+    public void delete() {
+        isDeleted = true;
+    }
 
     public Store update(StoreRequest request){
         if(!StringUtil.isNullOrEmpty(request.name()))
@@ -56,6 +67,4 @@ public class Store {
             this.address = request.address();
         return this;
     }
-
-    private final int id;
 }

@@ -12,13 +12,21 @@ import java.util.List;
 
 @Service
 public class StoreServiceImpl implements StoreService {
-    public List<Store> getAllStores() {
-        return Utils.stores;
+
+    public List<StoreResponse> getAllStores() {
+
+        List<StoreResponse> list = Utils.stores
+                .stream()
+//                .map((el) -> StoreResponse.from(el)) 람다식으로 변환
+                .map(StoreResponse::from)
+                .toList();
+        return list;
     }
     public Store getStoreById(int id) {
+
         return Utils.stores
                 .stream()
-                .filter(el -> el.getId() == id)
+                .filter(el -> el.getId() == id && !el.isDeleted())
                 .findFirst()
                 .orElseThrow(() -> new StoreNotFoundException(id));
     }
@@ -30,7 +38,7 @@ public class StoreServiceImpl implements StoreService {
 
     public void deleteStore(int id){
         Store storeById = getStoreById(id);
-        Utils.stores.remove(storeById);
+        storeById.delete();
     }
 
     public Store updateStore(StoreRequest request, int id) {

@@ -21,7 +21,7 @@ public class Store {
         this.address = address;
         this.openTime = openTime;
         this.closeTime = closeTime;
-        this.id = Utils.storeCount++;
+        this.id = StoreUtils.storeCount++;
         this.isDeleted = false;
     }
 
@@ -55,6 +55,17 @@ public class Store {
     private short closeTime;
     private final int id;
     private boolean isDeleted;
+    private int kioskCount = 1;
+
+    public int getKioskCount() {
+        return kioskCount;
+    }
+
+    public int kioskCountIncrease() {
+        return kioskCount++;
+    }
+
+
 
     public void delete() {
         isDeleted = true;

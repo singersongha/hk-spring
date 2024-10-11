@@ -3,9 +3,9 @@ package com.naver.kiosk.kiosk;
 import com.naver.kiosk.store.Store;
 import com.naver.kiosk.store.StoreRequest;
 
-public record KioskRequest(int kioskNumber, Store store) {
+public record KioskRequest(int storeId) {
 
     public Kiosk toKiosk() {
-        return new Kiosk(kioskNumber, store);
+        return new Kiosk(storeId);
     }
 }

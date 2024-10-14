@@ -15,4 +15,9 @@ public interface StoreService {
     List<Store> getAll();
 // DELETE api/v1/stores/{id}
     void deleteById(Long id);
+    void deleteByNameContain(String name);
+
+
+
+
 }

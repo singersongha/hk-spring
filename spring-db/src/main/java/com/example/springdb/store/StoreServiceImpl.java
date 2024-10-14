@@ -3,6 +3,7 @@ package com.example.springdb.store;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,8 +28,13 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    @Transactional // 에러 rollback return commit - dirty checking
     public Store update(Long id, Store store) {
-        return null;
+        Store store1 = getById(id);
+        store1.setAddress(store.getAddress());
+        store1.setName(store.getName());
+//        storeRepository.save(store1); // insert, update
+        return store1;
     }
 
     @Override
@@ -40,7 +46,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<Store> getByContainName(String name) {
-        return List.of();
+        return storeRepository.findByNameContain(name);
     }
 
     @Override
@@ -52,6 +58,12 @@ public class StoreServiceImpl implements StoreService {
     public void deleteById(Long id) {
         storeRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteByNameContain(String name) {
+        storeRepository.deleteByNameContain(name);
+    }
+
 
     static int i = 0;
 

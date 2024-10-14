@@ -31,13 +31,15 @@ public class StoreController {
 
     @GetMapping
 //    stores?name=fdsd
-    public List<Store> getAllStores(
+   public List<Store> getAllStores(
             @RequestParam(
                     required = false,
                     name = "name"
             ) String name) {
-        if(!StringUtil.isNullOrEmpty(name)) return null;
+        if(!StringUtil.isNullOrEmpty(name))
+            return storeService.getByContainName(name);
         return storeService.getAll();
+
     }
     @GetMapping("{id}")
     public Store getById(@PathVariable Long id){
@@ -46,5 +48,10 @@ public class StoreController {
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable Long id){
         storeService.deleteById(id);
+    }
+
+    @DeleteMapping()
+    public void deleteByName(String name){
+        storeService.deleteByNameContain(name);
     }
 }

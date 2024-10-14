@@ -28,6 +28,7 @@ public interface StoreRepository
 //    아이디가 5 이상의 것들 출력
     @Query("SELECT s FROM Store s WHERE s.id >= ?5")
     List<Store> findByIdGreaterThan(int id);
+
 //    name, address 둘 중 하나라도 들어가있는 것 출력
 //    @Query("SELECT s FROM Store s WHERE s.name = ?1 or s.address = ?2")
 }

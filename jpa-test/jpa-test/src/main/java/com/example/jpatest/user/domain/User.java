@@ -33,7 +33,6 @@ public class User {
     private String password;
     @Column(length = 10, nullable = false)
     private String username;
-
 //    (1:n)
     @OneToMany(mappedBy = "user")
     @Builder.Default

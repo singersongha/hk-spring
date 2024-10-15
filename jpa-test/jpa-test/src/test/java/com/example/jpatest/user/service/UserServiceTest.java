@@ -2,6 +2,7 @@ package com.example.jpatest.user.service;
 
 import com.example.jpatest.user.domain.User;
 import com.example.jpatest.user.repository.UserRepository;
+import com.example.jpatest.user.request.UserRequest;
 import com.example.jpatest.user.response.UserResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,15 +22,32 @@ class UserServiceTest {
 
     @Test
     void createUser() {
-
+        UserRequest userRequest = new UserRequest("email", "1111", "admin");
+        userService.createUser(userRequest);
     }
 
     @Test
     void updateUser() {
+        User user = users.get(0);
+        UserRequest userRequest = new UserRequest(user.getEmail(),
+                user.getPassword() + "1231",
+                user.getUsername());
+        UserResponse userResponse = userService.updateUser(user.getId(), userRequest);
+
+        assertNotNull(userResponse);
+
+        User after = userRepository.findById(user.getId()).get();
+        assertEquals(userRequest.password(), after.getPassword());
+        assertEquals(userRequest.username(), after.getUsername());
+        assertEquals(userRequest.email(), after.getEmail());
+        assertEquals(user.getEmail(), userResponse.email());
     }
 
     @Test
     void deleteUserById() {
+        userService.deleteUserById(1L);
+
+        assertFalse(userRepository.findById(1L).isPresent());
     }
 
     @Nested

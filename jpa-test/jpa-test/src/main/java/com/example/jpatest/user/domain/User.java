@@ -1,9 +1,12 @@
 package com.example.jpatest.user.domain;
 
+import com.example.jpatest.store.domain.Store;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(
@@ -27,5 +30,9 @@ public class User {
     private String password;
     @Column(length = 10, nullable = false)
     private String username;
+
+//    (1:n)
+    @OneToMany(mappedBy = "user")
+    private List<Store> stores;
 }
 

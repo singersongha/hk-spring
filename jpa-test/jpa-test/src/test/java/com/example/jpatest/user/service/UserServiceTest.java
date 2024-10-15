@@ -22,7 +22,8 @@ class UserServiceTest {
 
     @Test
     void createUser() {
-        userService.createUser()
+        UserRequest userRequest = new UserRequest("email", "1111", "admin");
+        userService.createUser(userRequest);
     }
 
     @Test

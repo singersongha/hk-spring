@@ -1,6 +1,8 @@
 package com.example.jpatest.user.domain;
 
+import ch.qos.logback.core.util.StringUtil;
 import com.example.jpatest.store.domain.Store;
+import com.example.jpatest.user.request.UserRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,5 +39,20 @@ public class User {
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<Store> stores = new ArrayList<>();
+    public void update(UserRequest request) {
+        if(!StringUtil.isNullOrEmpty(request.password()))
+            this.password = request.password();
+        if(StringUtil.isNullOrEmpty(request.username()))
+            this.username = request.username();
+
+
+//    public void setPassword(String password) {
+//    }
+//
+//    public void setUsername(String username) {
+//
+//    }
+
+    }
 }
 

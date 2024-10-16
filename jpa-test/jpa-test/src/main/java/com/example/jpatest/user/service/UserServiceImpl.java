@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Override
     public UserResponse createUser(UserRequest userRequest) {
-        User save = userRepository.save(userRequest.toEntity());
-        return UserResponse.from(save);
+        User entity =  userRequest.toEntity();
+        return UserResponse.from(userRepository.save(entity));
     }
 
     @Override

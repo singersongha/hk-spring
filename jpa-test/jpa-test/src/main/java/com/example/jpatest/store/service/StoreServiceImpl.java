@@ -23,7 +23,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<StoreResponse> getAllStore() {
-        return storeRepository.findJoinAll()
+        return storeRepository.findAll()
                 .stream()
                 .map(StoreResponse::from)
                 .toList();

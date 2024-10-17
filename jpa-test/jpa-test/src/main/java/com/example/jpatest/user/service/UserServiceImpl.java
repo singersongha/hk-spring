@@ -5,6 +5,9 @@ import com.example.jpatest.user.repository.UserRepository;
 import com.example.jpatest.user.request.UserRequest;
 import com.example.jpatest.user.response.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,5 +52,10 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(UserResponse::from)
                 .toList();
+    }
+
+    @Override
+    public Page<UserResponse> pageUsers(Pageable request) {
+        return userRepository.findAll(request).map(UserResponse::from);
     }
 }

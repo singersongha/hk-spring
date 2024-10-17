@@ -1,6 +1,7 @@
 package com.example.jpatest.store.domain;
 
 
+import com.example.jpatest.config.BaseEntity;
 import com.example.jpatest.order.domain.Order;
 import com.example.jpatest.user.domain.User;
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Store {
+public class Store extends BaseEntity {
     @Id
     @Column(name = "STORE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

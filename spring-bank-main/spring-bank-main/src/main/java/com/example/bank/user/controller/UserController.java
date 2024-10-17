@@ -1,10 +1,13 @@
 package com.example.bank.user.controller;
 
+import com.example.bank.user.domain.User;
 import com.example.bank.user.request.LoginRequest;
 import com.example.bank.user.request.RegisterRequest;
 import com.example.bank.user.response.UserResponse;
 import com.example.bank.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.patterns.IToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
     @PostMapping("/api/v1/auth/login")
-    public UserResponse login(
+    public String login(
             @RequestBody LoginRequest loginRequest
     ){
         return userService.login(loginRequest);
@@ -25,8 +28,10 @@ public class UserController {
     }
 
     @GetMapping("/api/v1/auth/me")
-    public UserResponse me(@RequestHeader("Authorization")
-                               String id) {
-        return userService.getById(id);
+    public UserResponse me(@AuthenticationPrincipal User user) {
+        // Bearer token
+       // if(!token.startsWith("Bearer ")) throw new RuntimeException("토큰 틀림ㅋ");
+       // return userService.getByToken(token.substring(7));
+        return UserResponse.from(user);
     }
 }

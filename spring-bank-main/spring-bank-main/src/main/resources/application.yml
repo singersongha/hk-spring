@@ -5,5 +5,10 @@ spring:
     password: 1234
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
+
+
+jwt:
+  secret: asdfaerrwesdfserw2asdfaerrwesdfserw2321
+  expiration: 86400000

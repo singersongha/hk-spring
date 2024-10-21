@@ -1,7 +1,5 @@
 package com.example.bank.user.domain;
 
-import com.example.bank.BankApplication;
-import com.example.bank.account.domain.Account;
 import com.example.bank.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -36,9 +32,6 @@ public class User extends BaseEntity implements UserDetails {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    private List<Account> accounts = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

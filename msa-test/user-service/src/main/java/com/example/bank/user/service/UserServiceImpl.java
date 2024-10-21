@@ -6,7 +6,6 @@ import com.example.bank.user.repository.UserRepository;
 import com.example.bank.user.request.LoginRequest;
 import com.example.bank.user.request.RegisterRequest;
 import com.example.bank.user.response.UserResponse;
-import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 

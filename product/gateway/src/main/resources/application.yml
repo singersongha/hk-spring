@@ -17,12 +17,14 @@ spring:
               - OPTIONS
             allowed-origins:
               - http://localhost:5173
+            allowed-headers: '*'
+
       routes:
         - id: command
-          uri: http://localhost:9000
+          uri: lb://COMMAND
           predicates:
             - Path=/api/v1/products/**
-            - Method=POST,PUT,DELETE,PATCH
+            - Method=POST,PUT,DELETE,PATCH,OPTIONS
         - id: query
           uri: lb://QUERY
           predicates:

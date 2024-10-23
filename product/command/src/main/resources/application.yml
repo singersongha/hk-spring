@@ -15,3 +15,6 @@ eureka:
       defaultUrl: http://localhost:8761/eureka
   instance:
     prefer-ip-address: true
+
+server:
+  port: 9001

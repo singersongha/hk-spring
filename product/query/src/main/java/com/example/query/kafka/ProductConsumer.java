@@ -17,6 +17,11 @@ public class ProductConsumer {
             service.sell(msg.getMessage().getId());
         if(msg.getAction().equals("receive"))
             service.receive(msg.getMessage().getId());
+        // 성공하면 성공 토픽 {id}
+        // 실패 id
+        // aop transactional start
+        // 성공 commit
+        // 실패 rollback
     }
 
 }

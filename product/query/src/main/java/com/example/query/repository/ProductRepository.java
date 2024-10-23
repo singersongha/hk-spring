@@ -46,7 +46,7 @@ public class ProductRepository {
                 .id(products.size() + 1L)
                 .price(product.getPrice())
                 .name(product.getName())
-                .quantity(product.getQuantity())
+                .quantity(product.getQuantity() == null ? 0: product.getQuantity())
                 .build();
         products.add(build);
         return build;

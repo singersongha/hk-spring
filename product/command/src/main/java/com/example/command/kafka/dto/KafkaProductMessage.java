@@ -1,6 +1,6 @@
-package com.example.query.kafka.dto;
+package com.example.command.kafka.dto;
 
-import com.example.query.entity.Product;
+import com.example.command.entity.Product;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
